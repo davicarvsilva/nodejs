@@ -1,24 +1,16 @@
-var nodemailer = require('nodemailer');
+var mysql = require('mysql');
 
-var transporter = nodemailer.createTransport({
-  service: 'outlook',
-  auth: {
-    user: 'yourmail@outlook.com',
-    pass: 'pass'
-  }
+var con = mysql.createConnection({
+	host: "localhost",
+  	user: "root",
+  	password: "root"
 });
 
-var mailOptions = {
-  from: 'youremail@outlook.com',
-  to: 'destination@gmail.com',
-  subject: 'Sending Email using Node.js',
-  html: "<h1 style='color:red; text-align:center;'>Welcome</h1><p>Test!</p>"
-};
-
-transporter.sendMail(mailOptions, function(error, info){
-  if (error) {
-    console.log(error);
-  } else {
-    console.log('Email sent: ' + info.response);
-  }
+con.connect(function(err) {
+  	if (err) throw err;
+  	console.log("Connected!");
+	con.query('CREATE DATABASE IF NOT EXISTS nodedbteste', function (err, result) {
+    		if (err) throw err;
+    		console.log("Database created.");
+  	});
 });
