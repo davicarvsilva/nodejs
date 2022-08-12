@@ -10,7 +10,8 @@ var con = mysql.createConnection({
 con.connect(function(err) {
   	if (err) throw err;
   	console.log("Connected!");
-	var sql = "SELECT * FROM customers";
+	var id = '1 OR 1=1';
+	var sql = "SELECT * FROM customers WHERE id = " + id;
 	con.query(sql, function (err, result, fields) {
 	    if (err) throw err;
 	    console.log(result);
